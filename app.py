@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS  
 import pdfplumber
 import pandas as pd
@@ -17,6 +17,11 @@ SEMESTER_FILES = {
     "5th Semester": "static/BE_Computer_5th.pdf"
     # Add more semesters as needed
 }
+
+# Route to serve static files
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('static', filename)
 
 @app.route('/get_result', methods=['POST'])
 def get_result():
